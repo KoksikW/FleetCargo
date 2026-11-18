@@ -8,34 +8,33 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- Параметри звіту -->
         <Border Grid.Row="0" Style="{StaticResource Card}" Margin="0,0,0,10">
-            <StackPanel Orientation="Horizontal">
+            <WrapPanel>
                 <StackPanel Margin="0,0,16,0">
-                    <TextBlock Text="З"/>
-                    <DatePicker SelectedDate="{Binding PeriodStart}" Width="140" Margin="0,2,0,0"/>
+                    <TextBlock Text="Період з"/>
+                    <DatePicker SelectedDate="{Binding PeriodStart}" Width="140"
+                                HorizontalAlignment="Left" Margin="0,2,0,0"/>
                 </StackPanel>
                 <StackPanel Margin="0,0,16,0">
-                    <TextBlock Text="По"/>
-                    <DatePicker SelectedDate="{Binding PeriodEnd}" Width="140" Margin="0,2,0,0"/>
+                    <TextBlock Text="Період по"/>
+                    <DatePicker SelectedDate="{Binding PeriodEnd}" Width="140"
+                                HorizontalAlignment="Left" Margin="0,2,0,0"/>
                 </StackPanel>
                 <StackPanel Margin="0,0,16,0">
                     <TextBlock Text="Тип звіту"/>
-                    <ComboBox Width="260" Margin="0,2,0,0" SelectedIndex="0">
-                        <ComboBoxItem Content="Рейси за період"/>
-                        <ComboBoxItem Content="Автомобілі, що потребують ТО"/>
-                    </ComboBox>
+                    <ComboBox Width="330" HorizontalAlignment="Left" Margin="0,2,0,0"
+                              ItemsSource="{Binding ReportTypes}"
+                              SelectedItem="{Binding SelectedReportType}"/>
                 </StackPanel>
                 <Button Content="Сформувати" Style="{StaticResource PrimaryButton}"
-                        Command="{Binding GenerateCommand}"
-                        VerticalAlignment="Bottom" Margin="0"/>
-            </StackPanel>
+                        Command="{Binding GenerateCommand}" VerticalAlignment="Bottom"/>
+                <Button Content="Експорт в Excel" Style="{StaticResource SecondaryButton}"
+                        Command="{Binding ExportCommand}" VerticalAlignment="Bottom" Margin="0"/>
+            </WrapPanel>
         </Border>
 
-        <DataGrid Grid.Row="1" ItemsSource="{Binding ReportRows}"
-                  AutoGenerateColumns="True"/>
+        <DataGrid Grid.Row="1" ItemsSource="{Binding ReportRows}" AutoGenerateColumns="True"/>
 
-        <TextBlock Grid.Row="2" Text="{Binding SummaryText}" FontWeight="SemiBold"
-                   Margin="0,10,0,0"/>
+        <TextBlock Grid.Row="2" Text="{Binding SummaryText}" FontWeight="SemiBold" Margin="0,10,0,0"/>
     </Grid>
 </UserControl>

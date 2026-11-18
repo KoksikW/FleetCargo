@@ -1,0 +1,48 @@
+<UserControl x:Class="FleetCargo.Views.VehicleFormView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <TextBlock Text="Державний номер"/>
+                        <TextBox Text="{Binding PlateNumber, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,8"/>
+                        <TextBlock Text="Марка"/>
+                        <TextBox Text="{Binding Brand, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,8"/>
+                        <TextBlock Text="Модель"/>
+                        <TextBox Text="{Binding Model, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,8"/>
+                        <TextBlock Text="Пробіг, км"/>
+                        <TextBox Text="{Binding MileageText, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,8"/>
+                        <TextBlock Text="Дата наступного ТО"/>
+                        <DatePicker SelectedDate="{Binding NextServiceDate}" Margin="0,2,0,8"/>
+                        <TextBlock Text="Страхування діє до"/>
+                        <DatePicker SelectedDate="{Binding InsuranceEndDate}" Margin="0,2,0,8"/>
+                        <TextBlock Text="Технічні примітки"/>
+                        <TextBox Text="{Binding Notes, UpdateSourceTrigger=PropertyChanged}"
+                                 AcceptsReturn="True" TextWrapping="Wrap" Height="70"
+                                 VerticalScrollBarVisibility="Auto" Margin="0,2,0,8"/>
+
+                        <TextBlock Text="Фото"/>
+                        <Border Style="{StaticResource PhotoFrame}" Margin="0,2,0,6">
+                            <Grid>
+                                <TextBlock Text="Фото відсутнє" Style="{StaticResource NoPhotoText}"
+                                           Visibility="{Binding NoFormPhoto, Converter={StaticResource BoolToVis}}"/>
+                                <Image Source="{Binding FormPhoto}" Stretch="Uniform"/>
+                            </Grid>
+                        </Border>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                            <Button Content="Вибрати фото" Style="{StaticResource SecondaryButton}"
+                                    Command="{Binding PickPhotoCommand}"/>
+                            <Button Content="Прибрати" Style="{StaticResource SecondaryButton}"
+                                    Command="{Binding RemovePhotoCommand}" Margin="0"/>
+                        </StackPanel>
+
+                        <TextBlock Text="{Binding ErrorText}" Style="{StaticResource ErrorText}"/>
+
+                        <StackPanel Orientation="Horizontal">
+                            <Button Content="Зберегти" Style="{StaticResource PrimaryButton}"
+                                    Command="{Binding SaveCommand}"/>
+                            <Button Content="Скасувати" Style="{StaticResource SecondaryButton}"
+                                    Command="{Binding CancelCommand}" Margin="0"/>
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+</UserControl>

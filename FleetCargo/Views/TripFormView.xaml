@@ -1,0 +1,49 @@
+<UserControl x:Class="FleetCargo.Views.TripFormView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel>
+            <TextBlock Text="Дата початку"/>
+            <DatePicker SelectedDate="{Binding StartDate}" Margin="0,2,0,8"/>
+
+            <TextBlock Text="Дата завершення"/>
+            <DatePicker SelectedDate="{Binding EndDate}" Margin="0,2,0,8"/>
+
+            <Button Content="Знайти доступні ресурси" Style="{StaticResource SecondaryButton}"
+                    Command="{Binding FindAvailableCommand}" Margin="0,0,0,10"/>
+
+            <Border Style="{StaticResource Card}" Margin="0,0,0,10">
+                <StackPanel>
+                    <TextBlock Text="Доступні ресурси на обраний період" FontWeight="SemiBold"/>
+                    <ListBox ItemsSource="{Binding AvailableResources}" Height="70"
+                             BorderThickness="0" Margin="0,4,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <TextBlock Text="Автомобіль"/>
+            <ComboBox ItemsSource="{Binding FreeVehicles}"
+                      SelectedItem="{Binding SelectedVehicle}" Margin="0,2,0,8"/>
+
+            <TextBlock Text="Водій"/>
+            <ComboBox ItemsSource="{Binding FreeDrivers}"
+                      SelectedItem="{Binding SelectedDriver}" Margin="0,2,0,8"/>
+
+            <TextBlock Text="Вантаж"/>
+            <ComboBox ItemsSource="{Binding CargoList}"
+                      SelectedItem="{Binding SelectedCargo}" Margin="0,2,0,8"/>
+
+            <TextBlock Text="Звідки"/>
+            <TextBox Text="{Binding Origin, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,8"/>
+
+            <TextBlock Text="Куди"/>
+            <TextBox Text="{Binding Destination, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,12"/>
+
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Створити рейс" Style="{StaticResource PrimaryButton}"
+                        Command="{Binding CreateTripCommand}"/>
+                <Button Content="Скасувати" Style="{StaticResource SecondaryButton}"
+                        Command="{Binding CancelNewTripCommand}" Margin="0"/>
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

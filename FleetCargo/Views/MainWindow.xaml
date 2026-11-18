@@ -4,9 +4,9 @@
         xmlns:views="clr-namespace:FleetCargo.Views"
         xmlns:vm="clr-namespace:FleetCargo.ViewModels"
         Title="Fleet &amp; Cargo — управління автопарком та маршрутами"
-        Width="1100" Height="680" MinWidth="900" MinHeight="560"
-        WindowStartupLocation="CenterScreen"
-        Background="{StaticResource AppBackground}"
+        Width="1100" Height="680" MinWidth="900" MinHeight="520"
+        WindowStartupLocation="CenterScreen" WindowState="Maximized"
+        Background="{DynamicResource AppBackground}"
         FontFamily="Segoe UI" FontSize="14">
 
     <Window.DataContext>
@@ -21,23 +21,32 @@
         </Grid.RowDefinitions>
 
         <!-- Заголовок -->
-        <Border Grid.Row="0" Background="{StaticResource AccentBrush}" Padding="16,10">
-            <StackPanel>
-                <TextBlock Text="Fleet &amp; Cargo" FontSize="20"
-                           FontWeight="Bold" Foreground="White"/>
-                <TextBlock Text="Логістична система управління автопарком та маршрутами"
-                           Foreground="#D6E4FF"/>
-            </StackPanel>
+        <Border Grid.Row="0" Background="{DynamicResource AccentBrush}" Padding="16,10">
+            <DockPanel>
+                <StackPanel DockPanel.Dock="Right" VerticalAlignment="Center">
+                    <TextBlock Text="Колір інтерфейсу" Foreground="White" Opacity="0.85" FontSize="12"
+                               HorizontalAlignment="Center"/>
+                    <Button Content="Вибрати колір" Style="{StaticResource SecondaryButton}"
+                            Click="OnColorClick" Margin="0,3,0,0"/>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Text="Fleet &amp; Cargo" FontSize="20"
+                               FontWeight="Bold" Foreground="White"/>
+                    <TextBlock Text="Логістична система управління автопарком та маршрутами"
+                               Foreground="White" Opacity="0.85"/>
+                </StackPanel>
+            </DockPanel>
         </Border>
 
         <!-- Модулі -->
-        <TabControl Grid.Row="1" Margin="12" Background="Transparent"
+        <TabControl x:Name="MainTabs" Grid.Row="1" Margin="12" Background="Transparent"
                     BorderThickness="0"
-                    SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay}">
-            <TabItem Header="Автопарк"><views:VehiclesView/></TabItem>
-            <TabItem Header="Водії"><views:DriversView/></TabItem>
-            <TabItem Header="Рейси"><views:TripsView/></TabItem>
-            <TabItem Header="Звіти"><views:ReportsView/></TabItem>
+                    SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay}" SelectionChanged="OnTabSelectionChanged">
+            <TabItem Header="Автопарк"><views:VehiclesView DataContext="{Binding VehiclesModule}"/></TabItem>
+            <TabItem Header="Водії"><views:DriversView DataContext="{Binding DriversModule}"/></TabItem>
+            <TabItem Header="Рейси"><views:TripsView DataContext="{Binding TripsModule}"/></TabItem>
+            <TabItem Header="Звіти"><views:ReportsView DataContext="{Binding ReportsModule}"/></TabItem>
+            <TabItem Header="Авторство"/>
         </TabControl>
 
         <!-- Рядок стану -->

@@ -1,0 +1,57 @@
+<UserControl x:Class="FleetCargo.Views.AuthorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StackPanel Orientation="Horizontal" Margin="8">
+
+        <!-- Фото автора -->
+        <Border Style="{StaticResource PhotoFrame}" Width="270" Height="350" VerticalAlignment="Top">
+            <Grid>
+                <TextBlock Text="Фото відсутнє" Style="{StaticResource NoPhotoText}"
+                           Visibility="{Binding NoPhoto, Converter={StaticResource BoolToVis}}"/>
+                <Image Source="{Binding Photo}" Stretch="Uniform"/>
+            </Grid>
+        </Border>
+
+        <!-- Відомості про автора та проєкт -->
+        <StackPanel Margin="32,0,0,0" Width="430">
+            <TextBlock Text="Автор проєкту" Style="{StaticResource HintText}"/>
+            <TextBlock Text="{Binding FullName}" FontSize="30" FontWeight="Bold" Margin="0,2,0,0"/>
+            <TextBlock Text="{Binding GroupText}" FontSize="20" Margin="0,4,0,18"
+                       Foreground="{DynamicResource AccentBrush}" FontWeight="SemiBold"/>
+
+            <Border BorderBrush="{StaticResource LineBrush}" BorderThickness="0,1,0,0" Padding="0,16,0,0">
+                <StackPanel>
+                    <TextBlock Text="Курсова робота" Style="{StaticResource HintText}"/>
+                    <TextBlock Text="{Binding ProjectTitle}" FontSize="17" FontWeight="SemiBold"
+                               TextWrapping="Wrap" Margin="0,2,0,18"/>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="210"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Text="Дата початку розробки"
+                                   Style="{StaticResource HintText}" Margin="0,0,0,10"/>
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding StartDateText}"
+                                   FontWeight="SemiBold" Margin="0,0,0,10"/>
+
+                        <TextBlock Grid.Row="1" Text="Дата завершення розробки"
+                                   Style="{StaticResource HintText}" Margin="0,0,0,10"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding EndDateText}"
+                                   FontWeight="SemiBold" Margin="0,0,0,10"/>
+
+                        <TextBlock Grid.Row="2" Text="Технології" Style="{StaticResource HintText}"/>
+                        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Technologies}"
+                                   FontWeight="SemiBold" TextWrapping="Wrap"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

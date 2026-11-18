@@ -1,0 +1,59 @@
+<Window x:Class="FleetCargo.Views.CargoWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Вантажі" Width="820" Height="600" MinWidth="700" MinHeight="520"
+        ShowInTaskbar="False" WindowStartupLocation="CenterOwner"
+        Background="{DynamicResource AppBackground}"
+        FontFamily="Segoe UI" FontSize="14">
+    <Grid Margin="14">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="320"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0" Margin="0,0,12,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <DataGrid Grid.Row="0" ItemsSource="{Binding Cargos}" SelectedItem="{Binding SelectedCargo}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Назва" Binding="{Binding Name}" Width="*"/>
+                    <DataGridTextColumn Header="Вага, кг" Binding="{Binding WeightKg}" Width="100"/>
+                    <DataGridTextColumn Header="Тип" Binding="{Binding CargoTypeName}" Width="170"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button Grid.Row="1" Content="Видалити" Style="{StaticResource SecondaryButton}"
+                    Command="{Binding DeleteCommand}" HorizontalAlignment="Left" Margin="0,10,0,0"/>
+        </Grid>
+
+        <Border Grid.Column="1" Style="{StaticResource Card}">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <TextBlock Text="Дані вантажу" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                    <TextBlock Text="Назва"/>
+                    <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,8"/>
+                    <TextBlock Text="Вага, кг"/>
+                    <TextBox Text="{Binding WeightText, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,8"/>
+                    <TextBlock Text="Тип вантажу"/>
+                    <ComboBox ItemsSource="{Binding Types}" SelectedItem="{Binding SelectedType}" Margin="0,2,0,10"/>
+
+                    <!-- Кнопки однакової ширини з відцентрованим підписом -->
+                    <Button Content="Додати" Style="{StaticResource PrimaryButton}"
+                            Command="{Binding AddCommand}" Margin="0,0,0,6"/>
+                    <Button Content="Зберегти зміни" Style="{StaticResource SecondaryButton}"
+                            Command="{Binding UpdateCommand}" Margin="0,0,0,6"/>
+                    <Button Content="Очистити" Style="{StaticResource SecondaryButton}"
+                            Command="{Binding ClearCommand}" Margin="0,0,0,16"/>
+
+                    <TextBlock Text="Новий тип вантажу"/>
+                    <TextBox Text="{Binding NewTypeName, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,6"/>
+                    <Button Content="Додати тип" Style="{StaticResource SecondaryButton}"
+                            Command="{Binding AddTypeCommand}" Margin="0,0,0,10"/>
+
+                    <TextBlock Text="{Binding ErrorText}" Style="{StaticResource ErrorText}"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</Window>
